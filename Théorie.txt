@@ -1,0 +1,9 @@
+Pour installer sass, du moins son compilateur, il faut aller sur
+-> https://sass-lang.com/ 
+-> go to install
+-> go to scout-app
+attention, ne pas installer et utiliser scout app dans le même dossier que le projet en cours.
+quand, lancé, il faut configurer votre projet, ps : il faut le lancer en admin
+attention que le input file c'est bien le sass, et le output file le css, 
+attention égalemnt que les deux fichier doivent être dans deux dossier séparé
+
