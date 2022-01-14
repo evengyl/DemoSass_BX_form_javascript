@@ -1,7 +1,26 @@
 @charset "UTF-8";
-/* line 1, ../../Théorie + demo/sass/style.sass */
+/* line 4, ../../Théorie + demo/sass/style.sass */
 body {
   background-color: black;
+  color: red;
+  font-size: 15px;
+}
+
+/* line 11, ../../Théorie + demo/sass/style.sass */
+button:hover {
+  color: blue;
+}
+
+/* line 16, ../../Théorie + demo/sass/style.sass */
+div {
+  margin: 0;
+}
+
+@media only screen and (max-width: 1200px) {
+  /* line 20, ../../Théorie + demo/sass/style.sass */
+  button {
+    padding: 10px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

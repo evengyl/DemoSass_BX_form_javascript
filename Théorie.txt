@@ -6,4 +6,39 @@ attention, ne pas installer et utiliser scout app dans le même dossier que le p
 quand, lancé, il faut configurer votre projet, ps : il faut le lancer en admin
 attention que le input file c'est bien le sass, et le output file le css, 
 attention égalemnt que les deux fichier doivent être dans deux dossier séparé
+il ne faudra pas oublier de mettre pour le mode dev et pas en prod, sinon moins lisible pour comparer
 
+
+introduire une petite ligne de sass pour voir un peu le res,
+attention première nouveauté, en sass, pas de { } ni de ; à la fin des lignes, seul une tabulation suffit ! écrire : 
+body
+    background-color: black
+
+et sauvegarder.
+
+lors de la première compilation si tout ce passe bien et que le logiciel réagis, en arrière plan alors tout est bon.
+
+Il va créer par la même occasion un fichier style.map !
+il va nous permettre, surtout à l'inspecteur de code css de notre navigateur, de faire le lien entre le css généré et le 
+bon emplacement des lignes de code dans le sass !!! super pratique pour s'y retrouver !
+
+Le premier gros avantages de sass, c'est sa syntaxe, par exemple, plus besoin de {} et plus besoin de ;
+Un autre gros avantages mais qui est maintenant également disponible sur css, c'est la possibilité de créer des variables
+par exemple pour stocker des élément répétitif
+-> $variable-name: value
+et pour les uses dans le code il suffira de mettre par exemple  
+-> color: $variable-name
+
+Nous retrouvons également un autre avantage du sass, c'est l'import de fichier, par exemple 
+quelque chose d'assez répendu, est de créer un fichier avec toutes les variables de notre app, et de l'importer dans notre code !
+il sera de toute facon réunifier lors de la compilation css
+pour ce faire nous n'aurons qu'a créer notre fichier sass de variable et de l'importer,
+pour ça nous utiliserons @import "filename" tout en haut de notre fichier sass
+
+une autre chose qui pourrait être utile si vous avez plusieurs class numérotée par exemple c'est la boucle for
+imaginons vous avez col-1 -> col-12, et que chaque colonne serais le res de 100% de largeur divisée en 12
+@for $i from 1 through 12
+    .col-#{$i}
+        width: 100% / 12 * $i
+
+nous avons égalemnt accès a une boucle while similaire à la boucle for 

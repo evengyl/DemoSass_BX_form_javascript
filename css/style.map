@@ -2,11 +2,13 @@
 	"version": 3,
 	"file": "style.css",
 	"sources": [
-		"../sass/style.sass"
+		"../sass/style.sass",
+		"../sass/var.sass"
 	],
 	"sourcesContent": [
-		"body {\n    background-color: black; }\n"
+		"@import \"var\";\n\n\nbody {\n    background-color: $color-black;\n    color: $color-red;\n    font-size: 15px; }\n\n\nbutton {\n    &:hover {\n        color: $color-blue; } }\n\n\n\ndiv {\n    margin: 0; }\n\n\nbutton {\n    @media only screen and(max-width:1200px) {\n        padding: 10px; } }\n\n\n$i: 1;\n@while $i > 12 {\n    .col-#{$i} {\n        width: 100% / 12 * $i; } }\n",
+		"$color-black: black;\n$color-red: red;\n$color-blue: blue;\n"
 	],
 	"names": [],
-	"mappings": ";;AAAA,AAAA,IAAI,CAAC;EACD,gBAAgB,EAAE,KAAK;CAAG"
+	"mappings": ";;AAGA,AAAA,IAAI,CAAC;EACD,gBAAgB,ECJN,KAAK;EDKf,KAAK,ECJG,GAAG;EDKX,SAAS,EAAE,IAAI;CAAG;;;AAGtB,AACI,MADE,AACD,MAAM,CAAC;EACJ,KAAK,ECTA,IAAI;CDSY;;;AAI7B,AAAA,GAAG,CAAC;EACA,MAAM,EAAE,CAAC;CAAG;;AAIZ,MAAM,MAAM,MAAM,MAAM,SAAS,EAAE,MAAM;;EAD7C,AAAA,MAAM,CAAC;IAEC,OAAO,EAAE,IAAI;GAAK"
 }

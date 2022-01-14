@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "var.css",
+	"sources": [
+		"../sass/var.sass"
+	],
+	"sourcesContent": [
+		"$color-black: black;\n$color-red: red;\n$color-blue: blue;\n"
+	],
+	"names": [],
+	"mappings": ""
+}
