@@ -8,6 +8,11 @@ attention que le input file c'est bien le sass, et le output file le css,
 attention égalemnt que les deux fichier doivent être dans deux dossier séparé
 il ne faudra pas oublier de mettre pour le mode dev et pas en prod, sinon moins lisible pour comparer
 
+Autre chose importante, dans les particulariter de sass, c'est ça compatibilité avec le scss, qui est une avancée de css
+pré-processeur, dans le cadre d'une bonne pratique, nous allons apprendre le sass et sa syntax et sa version scss,
+car de moins en moins la syntax sass est utilisée car moins compatible avec les code scss et css existant sur let net,
+ce qui à donc promu à l'oubli de cette syntax.
+
 
 introduire une petite ligne de sass pour voir un peu le res,
 attention première nouveauté, en sass, pas de { } ni de ; à la fin des lignes, seul une tabulation suffit ! écrire : 
@@ -16,29 +21,275 @@ body
 
 et sauvegarder.
 
+Maintenant que cette syntax est vue, nous allons simplement et tout bonnement l'abandonnée, 
+renomé votre fichier en style.scss
+remplacer votre syntax actuelle par la syntax css classique
+
 lors de la première compilation si tout ce passe bien et que le logiciel réagis, en arrière plan alors tout est bon.
 
 Il va créer par la même occasion un fichier style.map !
 il va nous permettre, surtout à l'inspecteur de code css de notre navigateur, de faire le lien entre le css généré et le 
 bon emplacement des lignes de code dans le sass !!! super pratique pour s'y retrouver !
 
-Le premier gros avantages de sass, c'est sa syntaxe, par exemple, plus besoin de {} et plus besoin de ;
-Un autre gros avantages mais qui est maintenant également disponible sur css, c'est la possibilité de créer des variables
-par exemple pour stocker des élément répétitif
--> $variable-name: value
+Un gros avantages mais qui est maintenant également disponible sur css, c'est la possibilité de créer des variables
+par exemple pour stocker des élément répétitif, on peux également les utilisée pour faire des opération arithmétique dessus,
+attention que ces opération doivent être de même unité !!!
+
+-> $variable-name: value;
+
 et pour les uses dans le code il suffira de mettre par exemple  
--> color: $variable-name
+
+-> color: $variable-name;
+
+Nous pouvons encore pousser plus loins que ça
+
 
 Nous retrouvons également un autre avantage du sass, c'est l'import de fichier, par exemple 
 quelque chose d'assez répendu, est de créer un fichier avec toutes les variables de notre app, et de l'importer dans notre code !
 il sera de toute facon réunifier lors de la compilation css
 pour ce faire nous n'aurons qu'a créer notre fichier sass de variable et de l'importer,
-pour ça nous utiliserons @import "filename" tout en haut de notre fichier sass
+pour ça nous utiliserons 
+
+@import "filename"; tout en haut de notre fichier sass
+
+
+
+
+
+Une autre chose utilise en sass, c'est le fait de pouvoir mettre des conditions sur les variables, donc les if et else, il vont nous permettre par exemple de 
+jauger si une tel couleur ceci ou si tel taille cela, par exemple j'aimerais que l'intérieur de mon hover sur un élément, soit, ou plus clair ou plus foncé suivant 
+sa couleur de fond, j'aurais donc par exemple 
+
+    &:hover{
+        background-color: $color-black;
+        @if(lightness($color-black) > 50%){
+            color: $color-dark-red;
+        }
+        @else{
+            color: $color-light-red;
+        }
+    }
+
+ce qui donnera en cas de color-black foncé :) 
+
+button:hover {
+  color: blue;
+}
+
+ou en cas de clair 
+
+button:hover {
+  background-color: black;
+  color: #ff7777;
+}
+
+
+
+
 
 une autre chose qui pourrait être utile si vous avez plusieurs class numérotée par exemple c'est la boucle for
 imaginons vous avez col-1 -> col-12, et que chaque colonne serais le res de 100% de largeur divisée en 12
 @for $i from 1 through 12
-    .col-#{$i}
-        width: 100% / 12 * $i
+{
+    .col-#{$i}{
+        width: 100% / 12 * $i;
+    }
+}
 
-nous avons égalemnt accès a une boucle while similaire à la boucle for 
+nous avons égalemnt accès a une boucle while similaire à la boucle for, attention que ici il vous fuadra avoir un compteur déclarer à l'avance !
+pratique pour utiliser ce compteur venant d'une autre variable.
+$i: 1;
+@while $i <= 12{
+
+    .col-#{$i}{
+        width: 100% / 12 * $i;
+        $i : $i + 1;
+    }
+}
+
+Dans le même aspect de boucle il nous reste la boucle each, qui elle va permettre de parcourir une liste d'élément pour faire des opérations 
+exemple : 
+
+$categories:
+    chien red,
+    chat blue,
+    poisson green;
+
+@each $category in $categories{
+    .#{nth($category, 1)}{
+        background-color: nth($category, 2)
+    }
+}
+PS : la fonction nth, nous permet ici de prendre en compte que chien red est en réalité deux paramètre, nth1 et nth2 pour la couleur!!
+
+Donnera 
+
+
+.chien {
+  background-color: red;
+}
+
+.chat {
+  background-color: blue;
+}
+
+.poisson {
+  background-color: green;
+}
+
+
+
+Pour les média queries par exemple, on peux maitenant appliquer les regles sur une classe et plus appliquer des regles à des class
+button
+    @media only screen and(max-width:1200px){
+        padding: 10px
+    }
+
+donnera 
+
+@media only screen and (max-width: 1200px) {
+  button {
+    padding: 10px;
+  }
+}
+
+attention que lors de la compilation, si le sass détecte une duplication de code, il n'en tiendra pas compte et écrira deux fois la même règle
+du moins pour les media queries
+
+
+
+
+On retrouve également la notion d'héritage, cad, que on peux attribué a un selecteur, les même proprité qu'un autre selecteur !
+exemple : 
+div{
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+}
+
+.div{
+    @extend div;
+}
+
+donnera 
+
+div, .div {
+  margin: 0;
+  padding: 0;
+  border: 1px solid black;
+}
+
+PS : si vous ajouter des props à la .div, ça ne posera pas de problème, il recréera un selecteur unique pour cette proprité
+Cette particularité est très pratique pour avoir des class générique en haut de fichier et allégé le code,
+on peux, même pour ne pas avoir des class générique nommée et donc des class que vous n'utiliserez pas, des classe faux selecteur
+exemple : 
+
+%div{
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+}
+
+.div{
+    @extend %div;
+    background-color: yellow;
+}
+
+donnera 
+
+.div {
+  margin: 0;
+  padding: 0;
+  border: 1px solid black;
+}
+
+.div {
+  background-color: yellow;
+}
+
+
+
+
+Nous allons également avoir une des plus grande particulariter des sass, les mixins, ce sont des fonctions tout simplement
+au premier abord elle ressembles fortement au extend classique, sauf que, au détriment des extend, le compilateur ne crée pas le
+bloc d'instruction si il n'est pas utilisé !
+exemple :
+
+@mixin reset-list{
+    margin: 0
+    padding: 0
+    list-style: none
+}
+
+
+@mixin horizontal-list{
+
+    @include reset-list;
+    
+    li{
+        display: inline-block;
+        margin{
+            left: -2px;
+            right: 2em;
+        }
+    }
+}
+
+donnera 
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-left: -2px;
+  margin-right: 2em;
+}
+
+mais les mixins ne s'arrète pas la, on va également pouvoir les travailler avec des paramètres ! comme des fonctions classiques en programmation
+exemple, attention rappel: n'oublier pas que pour interpreter la variable en mode chaine de caractère compréhensible par le compilateur,
+vous devrez utiliser le #{} 
+
+@mixin rtl($property, $ltr-value, $rtl-value)
+    #{$property}: $ltr-value
+    #{$property}: $rtl-value
+
+
+.sidebar
+    @include rtl(float, left, right)
+
+ici nous pouvons constater que nous passons 3 variable à notre mixins qui les injecte avec interpretation de variable et de props !!!
+
+Attention, les mixin permettent de renvoyer des bloc d'instruction css,
+nous avons également les fonctions, qui elle ne permette de renvoyer qu'une valeur, par exemple si notre code de départ vaux 16px,
+le font-size html en gros, et que nous voulons toujours opérer la dessus mais en travaillant sur des pixel, pour ne pas devoir calculer
+la correspondances en rem tout le temps, nous pourrions avoir une fonction comme ceci
+
+@function rem($size, $base : 16px)
+{
+    @return 1rem * $size / $base
+}
+qui s'applera dans l'autre morceau de code, comme ceci 
+
+body{
+    background-color: $color-black;
+    color: $color-red;
+    font-size: rem(15px)
+}
+
+nous donnera 
+
+body {
+  background-color: black;
+  color: red;
+  font-size: 0.9375rem;
+}
+
+et hop fini de toujours calculer à la mains la valeur en rem de nous font ou autre !
+
+
+
+

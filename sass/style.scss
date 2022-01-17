@@ -1,0 +1,88 @@
+@import "var";
+@import "mixins";
+@import "functions";
+
+    
+body{
+    background-color: $color-black;
+    color: $color-red;
+    font-size: rem(15px)
+}
+
+
+button{
+    &:hover{
+        background-color: $color-black;
+        @if(lightness($color-black) > 50%){
+            color: $color-dark-red;
+        }
+        @else{
+            color: $color-light-red;
+        }
+    }
+
+    .body{
+        .btn{
+            color: $color-red;
+        }
+    }
+}
+    
+
+     
+
+%div{
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+}
+
+.div{
+    @extend %div;
+    background-color: yellow;
+}
+
+
+button{
+    @media only screen and(max-width:1200px){
+        padding: 10px;
+    }
+}
+
+
+
+
+
+
+
+
+$i: 1;
+@while $i <= 12{
+
+    .col-#{$i}{
+        width: 100% / 12 * $i;
+        $i : $i + 1;
+    }
+}
+
+$categories:
+    chien red,
+    chat blue,
+    poisson green;
+
+@each $category in $categories{
+    .#{nth($category, 1)}{
+        background-color: nth($category, 2)
+    }
+}
+
+
+nav ul{
+    @include horizontal-list;
+}
+
+
+.sidebar{
+
+    @include rtl(float, left, right);
+}

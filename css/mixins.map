@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "mixins.css",
+	"sources": [
+		"../sass/mixins.scss"
+	],
+	"sourcesContent": [
+		"\r\n@mixin reset-list{\r\n    margin: 0;\r\n    padding: 0;\r\n    list-style: none;\r\n}\r\n\r\n\r\n@mixin horizontal-list{\r\n\r\n    @include reset-list;\r\n    \r\n    li{\r\n        display: inline-block;\r\n        margin{\r\n            left: -2px;\r\n            right: 2em;\r\n        }\r\n    }\r\n}\r\n\r\n\r\n\r\n@mixin rtl($property, $ltr-value, $rtl-value)\r\n{\r\n    #{$property}: $ltr-value;\r\n    #{$property}: $rtl-value;\r\n}"
+	],
+	"names": [],
+	"mappings": ""
+}

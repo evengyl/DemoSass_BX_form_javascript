@@ -2,10 +2,10 @@
 	"version": 3,
 	"file": "var.css",
 	"sources": [
-		"../sass/var.sass"
+		"../sass/var.scss"
 	],
 	"sourcesContent": [
-		"$color-black: black;\n$color-red: red;\n$color-blue: blue;\n"
+		"$color-black: black;\r\n$color-red: red;\r\n$color-blue: blue;\r\n$color-light-red: rgb(255, 119, 119);\r\n$color-dark-red: rgb(136, 0, 0);\r\n\r\n\r\n\r\n"
 	],
 	"names": [],
 	"mappings": ""

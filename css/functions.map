@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "functions.css",
+	"sources": [
+		"../sass/functions.scss"
+	],
+	"sourcesContent": [
+		"@function rem($size, $base : 16px)\r\n{\r\n    @return 1rem * $size / $base\r\n}"
+	],
+	"names": [],
+	"mappings": ""
+}
